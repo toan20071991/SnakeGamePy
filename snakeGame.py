@@ -22,8 +22,8 @@ class Snake:
 		self.score = 0
 	
 	def createFood(self):
-		self.foodX = ((random.random() * self.width)//self.size)*self.size
-		self.foodY = ((random.random() * self.height)//self.size)*self.size
+		self.foodX = random.randrange(self.size, self.width-self.size, self.size)
+		self.foodY = random.randrange(self.size, self.height-self.size, self.size)
 	
 	def gameLogic(self):
 		if (self.posX == self.foodX) & (self.posY == self.foodY):
@@ -87,7 +87,13 @@ class Snake:
 		while self.gameOver == False:
 			cmd = input()
 			if (cmd == "w") | (cmd == "s") | (cmd == "a") | (cmd == "d"):
-				self.direction = cmd
+				if(("w" == cmd) & ("s" == self.direction)) | \
+					(("s" == cmd) & ("w" == self.direction)) | \
+					(("a" == cmd) & ("d" == self.direction)) | \
+					(("d" == cmd) & ("a" == self.direction)):
+					pass
+				else:
+					self.direction = cmd
 
 def main():
 	#create snake
